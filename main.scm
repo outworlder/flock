@@ -1,6 +1,7 @@
 ;; Flock framework
 
-(require 'intarweb)
+(require-extension intarweb)
+(require-extension sql-de-lite)
 
 ;; Steps:
 ;; - Get the request
