@@ -1,5 +1,6 @@
 ;; Flock framework
 
+(require-extension uri-common)
 (require-extension intarweb)
 (require-extension sql-de-lite)
 
@@ -61,6 +62,19 @@
   ;; thunk
 ;;  )
 
+;; Breaks down the URL into useful components.
+;; Should return:
+;; Controller
+;; Action
+;; (List of parameters)
+(define (break-url url)
+  (let ((uri-ref (uri-reference url)))
+    (unless? (uri? uri-ref)
+	     (begin
+	       (uri-query (uri-ref))
+	       
+  
+
 ;; This will decode the (initially) CGI parameters
 (define (decode-params)
   (let-environment-variables
@@ -81,4 +95,5 @@
     (remote-ident "REMOTE_IDENT")
     (content-type "CONTENT_TYPE")
     (content-length "CONTENT_LENGTH"))
-   (print server-software)))
+   (case request-method
+     (("GET") handle-get))
