@@ -12,21 +12,31 @@
 ;; - If the top exception handler catches an exception, display the 500 error page
 ;; - There are no controllers. When are we going to display the 404 page?
 
-;; URL breakdown:
-;; protocol://localhost.localdomain:port/controller/action/id
 
 ;; TODO: Implement the model - requires SqLite access
 ;; TODO: Figure out how to handle the controllers in a non-OO language. No OO frameworks will be added.
 
 ;; TODO: Add the exception handler here.
+(define (handle-errors)
+  "Error page here blahblah")
 
 
 ;; Note about CGI requests:
 ;; CGI will send information using environment variables, command-line parameters and stdin
 
 
-(define (handle-errors)
-  "Error page here blahblah")
+;; -----------------------------------------------------------------------------
+;; Routes section
+;; -----------------------------------------------------------------------------
+
+;; Routes will follow a simple structure at first.
+
+;; URL breakdown:
+;; protocol://localhost.localdomain:port/controller/action/[named_param_1]/[named_param_2]?param3=value&param4=value
+;; Protocol and host are irrelevant to the route matcher
+;; 
+(define routes-alist
+  '())
 
 ;; Request method should not matter.
 ;; Process requests will initially process CGI requests. We have to parse the headers.
@@ -72,4 +82,3 @@
     (content-type "CONTENT_TYPE")
     (content-length "CONTENT_LENGTH"))
    (print server-software)))
-
