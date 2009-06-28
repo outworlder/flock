@@ -1,0 +1,30 @@
+* Project Flock
+  It should be an extensible web framework written in Scheme. It's goals are:
+** No configuration
+   There should be no confguration necessary to obtain a simple website. More elaborate scenarios may require configuration, of course.
+** No messing with HTML templates
+   Templating engines are supposed to be easier to introduce into a web-designer`s workflow. However, in my experience, as the project progresses, the amount of code inserted inside the HTML template makes it difficult for web designers to change, as they become dynamic. 
+   Designers should create the prototype, and work with CSS files (and, to a lesser extent, custom javascript).
+   Instead of a templating engine, we should use widgets, described as Scheme procedures. HTML generation is to be handled by a library, and should output correct XHTML strict code.
+** Widgets support
+   Rendering pages and partials, as done by the Rails framework is a nice way to create simple websites. However, as they become more complex, they start to have repeated user interface elements, which should be reusable. But, since they are tied to their respective controllers and pages, reuse becomes non-trivial.
+   Widgets should be able to render themselves no matter where they are located in the page. This requires packaging of model - controller - view code inside one atomic block.
+** AJAX-aware
+   If the browser supports it, queries should use Ajax automatically, unless otherwise specified. Usage of Ajax should be transparent to the developer.
+** Automatic performance optimizations
+   When rendering a page, the framework should generate a tree of widgets in a page. Their model requests should be queued and, if applicable, bunched together. Repeated requests should be performed only once.
+   Widgets should also provide a list of files in use. Javascripts and CSS should be minified and bundled.
+   An option to generate a static HTML and cache on disk should be provided.
+   Options for caching generated web pages, SQL and etc using memcached should be considered.
+* Modules [0%]
+** TODO CGI Request Processor 
+   Receives CGI requests, break down the environment variables and stuff them inside a structure. Parameter validation and escaping can be done here.
+** TODO Routes Handling
+   Matches rules to container widgets, passing any required parameters.
+** TODO HTML renderer
+   SEXPR based XHTML strict renderer.
+** TODO Widget support
+** TODO SQLite support
+** TODO Memcached support
+
+
