@@ -16,6 +16,22 @@
    Widgets should also provide a list of files in use. Javascripts and CSS should be minified and bundled.
    An option to generate a static HTML and cache on disk should be provided.
    Options for caching generated web pages, SQL and etc using memcached should be considered.
+* Widgets
+  Widgets are chunks of code which gather information from a source (usually a database), process the data and display them to the user. This occurs in response to an event.
+  Events could be:
+  - URL requests (including Ajax)
+  - Form posts
+** TODO Figure out how to handle webservices.
+** Widget types
+   Widgets can be subdivided into:
+*** Renderer Widgets
+    These render requests, usually in response to an event. They can gather information from a variety of sources (memcached, mysql, webservices, filesystem files, sockets, etc), process and then display them. Their display is not required to be HTML - could be Javascript, XML, plain text, binary (for instance, to output images).
+*** Container Widgets
+    These contain other widgets. They are not visible.
+    A page is a Container Widget. As of now ([2009-06-27 Sat]), pages are not special.
+*** Form Widgets
+    These are usually (but not always) HTML forms. Their purpose it to gather input data, validate and process. Rendering the results is usually accomplished by another Renderer widget. This one renders the form (and validation results, if required).
+**** TODO Are they really a special case?
 * Modules [0%]
 ** TODO CGI Request Processor 
    Receives CGI requests, break down the environment variables and stuff them inside a structure. Parameter validation and escaping can be done here.
@@ -24,6 +40,9 @@
 ** TODO HTML renderer
    SEXPR based XHTML strict renderer.
 ** TODO Widget support
+*** TODO Renderer Widgets
+*** TODO Container Widgets
+*** TODO Form Widgets
 ** TODO SQLite support
 ** TODO Memcached support
 
