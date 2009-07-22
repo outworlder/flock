@@ -2,12 +2,22 @@
 
 (require-extension uri-dispatch)
 (require-extension defstruct)
+(require-extension sxml-transforms)
 
-(define routes-tree
-  '())
-
+(defstruct route base params)
 (defstruct response type extra-headers body)
 (defstruct request query_string path_info)
+(defstruct fragment type body)
+
+(define *routes-tree*
+  '())
+
+(define *views-alist
+  '())
+
+;; (define (add-route route function)
+;;   (let ((route (break-route-url url)))
+;;     (set! *routes-tree* (append *routes-tree* route))))
 
 (define cgi-environment-variables-list
    '("SERVER_SOFTWARE"
@@ -37,20 +47,24 @@
        (lambda (x)
 	 (list x (get-environment-variable x)))  cgi-environment-variables-list))
 
-(define (main)
-  (print "Content-type: text/html\n\n")
-  (print "Hello world from hell!"))
-
-(define-view 'index
-  (html
-   (head
-    (title "Stone-age blog")
-    (stylesheet "stone-age.css"))
-   (body
-    (render-blog-post))))
-
 (define (render-view name)
-  ())
+  (let ((view-data (assoc name *views-alist*)))
+    (unless view-data
+      (signal 'view-not-found))
+    (SRV:send-reply (assoc name *views-alist*))))
+
+(define (define-view name body)
+  (append! *views-alist*
+           (list name body)))
+
+;; Receives a list(sxml) as input, returns html as output
+(define (render-sxml body)
+  (make-fragment
+   type: 'html body: (SXML->HTML body)))
+
+(define (render-text body)
+  (make-fragment
+   type: 'text body: body))
 
 (define (handle-errors message)
   (print-content-type 'html)
@@ -76,9 +90,27 @@
 ;; render a standard set of headers
 (define (render-response response)
   (unless (response? response)
-    (handle-errors "render-response: Asked to render something that's not a response object.")
+    (signal 'invalid-response)
     (print-content-type (response-type response))
     (display ((response-body response)))))
+
+(define (main)
+  (print "Content-type: text/html\n\n")
+  (print "Hello world from hell!"))
+
+(define index
+  `(html
+   (head
+    (title "Stone-age blog")
+    (stylesheet "stone-age.css"))
+   (body
+    ,(render-blog-post))))
+
+(define (render-blog-post)
+  '((h1
+   "Oh look, I'm a blog post")
+   (hr)
+   (div "Pretend this shit came from a database")))
 
 (define (index)
   (render-view 'index))
