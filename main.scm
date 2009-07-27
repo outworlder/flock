@@ -1,6 +1,5 @@
 ;; Flock framework
 
-(require-extension uri-dispatch)
 (require-extension defstruct)
 (require-extension sxml-transforms)
 
@@ -9,10 +8,7 @@
 (defstruct request query_string path_info)
 (defstruct fragment type body)
 
-(define *routes-tree*
-  '())
-
-(define *views-alist
+(define *views-alist*
   '())
 
 ;; (define (add-route route function)
@@ -54,8 +50,8 @@
     (SRV:send-reply (assoc name *views-alist*))))
 
 (define (define-view name body)
-  (append! *views-alist*
-           (list name body)))
+  (set! *views-alist* (append *views-alist*
+           (list name body))))
 
 ;; Receives a list(sxml) as input, returns html as output
 (define (render-sxml body)
@@ -86,17 +82,11 @@
   (print "Content-type: " (decide-content-type type))
   (print))
    
-;; Headers is an association list, with the headers that are going into the response. If nil(or empty),
-;; render a standard set of headers
 (define (render-response response)
   (unless (response? response)
     (signal 'invalid-response)
-    (print-content-type (response-type response))
-    (display ((response-body response)))))
-
-(define (main)
-  (print "Content-type: text/html\n\n")
-  (print "Hello world from hell!"))
+    (print-content-type (response-type response)))
+    (render-view (response-body response)))
 
 (define index
   `(html
@@ -112,7 +102,9 @@
    (hr)
    (div "Pretend this shit came from a database")))
 
-(define (index)
-  (render-view 'index))
+(define (main)
+  (define-view 'index index)
+  (render-response (make-response type: 'html body: 'index)))
+
 
 (main)
