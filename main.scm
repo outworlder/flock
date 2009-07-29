@@ -1,6 +1,5 @@
 ;; Flock framework
 
-(require-extension uri-dispatch)
 (require-extension defstruct)
 (require-extension sxml-transforms)
 (require-extension uri-common)
@@ -129,8 +128,6 @@
   (print "Content-type: " (decide-content-type type))
   (print))
    
-;; Headers is an association list, with the headers that are going into the response. If nil(or empty),
-;; render a standard set of headers
 (define (render-response response)
   (unless (response? response)
     (signal 'invalid-response)
