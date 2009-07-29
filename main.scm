@@ -3,21 +3,64 @@
 (require-extension uri-dispatch)
 (require-extension defstruct)
 (require-extension sxml-transforms)
+(require-extension uri-common)
 
 (defstruct route base params)
 (defstruct response type extra-headers body)
-(defstruct request query_string path_info)
+(defstruct request uri)
 (defstruct fragment type body)
-
-(define *routes-tree*
-  '())
+(defstruct application-context name path session-store database-adapter widgets)
+(defstruct widget name renderer content)
 
 (define *views-alist
   '())
 
-;; (define (add-route route function)
-;;   (let ((route (break-route-url url)))
-;;     (set! *routes-tree* (append *routes-tree* route))))
+(define *applications-alist*
+  '())
+
+(define (find-application name)
+  (let ((app (assoc name *applications-alist*)))
+    (unless app
+      (signal 'application-not-found))
+    app))
+
+(define (get-app-widgets app-name)
+  (application-context-widgets (find-application name)))
+
+(define (add-widget app-name)
+  (application-context-widgets-set! ))
+
+(define (find-widget application path)
+    (let finder ([path path] [route (get-app-widgets application)])
+      (if (null? path)
+          (car route)
+          (let ([next (assoc (car path) (car route))])
+            (unless next
+              (signal 'widget-not-found)
+              (finder (cdr path) next))))))
+            
+(define (render-widget application widget)
+  (let ([widget (find-widget application widget)])
+    (if (widget-render widget)          
+        ((widget-render widget) (widget-content widget)) ;If a function
+        (render-sxml content))))                         ;Treat as SXML and render
+
+(define (create-widget application renderer content)
+  (get-app-widgets
+   
+;; Returns a function that defines a standard dispatcher
+;; The standard dispatcher will try to match everything after the application path to a wiget
+;; Leftover parameters will go as widget parameters
+;; Routes should be a tree. 
+(define (standard-dispatcher-function application-name)
+  (letrec ((standard-dispatcher (lambda (request #!optional (url (request-uri request))))
+                                  (let ((path (if (uri? url) ;Check if it is a uri-common or a list
+                                                  (uri-path url) ;Break it into a list
+                                                  url)))
+                                    (if (atom? (car path)) ;Tries to match it to a widget
+                                        (render-widget (find-widget application-name (car path)))
+                                        (standard-dispatcher (routes request url)))))))
+  standard-dispatcher)
 
 (define cgi-environment-variables-list
    '("SERVER_SOFTWARE"
@@ -41,6 +84,10 @@
 (define (get-env env-vars var)
   (cadr (assoc var env-vars)))
 
+(define (make-application title path #!key (session 'cookies) (database 'sqlite) (dispatcher 'standad-dispatcher))
+  #f)
+
+
 ;; Returns an alist containing the CGI environment variables
 (define (make-cgi-env-alist)
   (map
@@ -52,10 +99,6 @@
     (unless view-data
       (signal 'view-not-found))
     (SRV:send-reply (assoc name *views-alist*))))
-
-(define (define-view name body)
-  (append! *views-alist*
-           (list name body)))
 
 ;; Receives a list(sxml) as input, returns html as output
 (define (render-sxml body)
@@ -95,24 +138,6 @@
     (display ((response-body response)))))
 
 (define (main)
-  (print "Content-type: text/html\n\n")
-  (print "Hello world from hell!"))
-
-(define index
-  `(html
-   (head
-    (title "Stone-age blog")
-    (stylesheet "stone-age.css"))
-   (body
-    ,(render-blog-post))))
-
-(define (render-blog-post)
-  '((h1
-   "Oh look, I'm a blog post")
-   (hr)
-   (div "Pretend this shit came from a database")))
-
-(define (index)
-  (render-view 'index))
+  #f)
 
 (main)
