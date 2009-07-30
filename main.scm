@@ -9,13 +9,19 @@
 (defstruct request uri)
 (defstruct fragment type body)
 (defstruct application-context name path session-store database-adapter widgets)
-(defstruct widget name renderer content)
+(defstruct widget name renderer content children)
 
-(define *views-alist
+(define *views-alist*
   '())
 
 (define *applications-alist*
   '())
+
+
+;; The toplevel widget is not special, so far.
+(define *widgets-alist*
+  (make-widget name: 'root widgets: '()))
+
 
 (define (find-application name)
   (let ((app (assoc name *applications-alist*)))
@@ -45,26 +51,27 @@
         (render-sxml content))))                         ;Treat as SXML and render
 
 (define (create-widget application renderer content)
-  (get-app-widgets
+  (let ([widgets (get-app-widgets application)])
+    (set! (cons (make-widget renderer: renderer content: content) widgets) widgets)))
    
 ;; Returns a function that defines a standard dispatcher
 ;; The standard dispatcher will try to match everything after the application path to a wiget
 ;; Leftover parameters will go as widget parameters
 ;; Routes should be a tree. 
 (define (standard-dispatcher-function application-name)
-  (letrec ((standard-dispatcher (lambda (request #!optional (url (request-uri request))))
+  (letrec ([standard-dispatcher (lambda (request #!optional (url (request-uri request))))
                                   (let ((path (if (uri? url) ;Check if it is a uri-common or a list
                                                   (uri-path url) ;Break it into a list
                                                   url)))
                                     (if (atom? (car path)) ;Tries to match it to a widget
                                         (render-widget (find-widget application-name (car path)))
-                                        (standard-dispatcher (routes request url)))))))
+                                        (standard-dispatcher (routes request url))))]))
   standard-dispatcher)
 
 (define cgi-environment-variables-list
    '("SERVER_SOFTWARE"
   "SERVER_NAME"
- "GATEWAY_INTERFACE"
+e  "GATEWAY_INTERFACE"
  "SERVER_PROTOCOL"
  "SERVER_PORT"
  "REQUEST_METHOD"
@@ -131,6 +138,7 @@
 (define (render-response response)
   (unless (response? response)
     (signal 'invalid-response)
+
     (print-content-type (response-type response))
     (display ((response-body response)))))
 
