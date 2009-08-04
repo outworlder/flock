@@ -1,6 +1,9 @@
 # Makefile for the Flock project
 
-all: flock
+all: paleolithic
 
 flock:
 	csc main.scm -o flock
+
+paleolithic: paleolithic.scm
+	csc paleolithic.scm -o cgi-bin/paleolithic
