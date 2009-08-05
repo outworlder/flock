@@ -9,8 +9,7 @@ body
     margin-left: 1em;
     margin-right: 1em;
     padding-top: 0;
-    background-color: #222222;
-    /* background-image: url("paleolithic.jpg"); */
+    background: #AAAAAA url("bkg_main.jpg") repeat-x scroll 0 0;
 }
 
 h1
@@ -45,26 +44,29 @@ div.post
     width: 1024px;
     margin-right: auto;
     margin-left: auto;
-    font-weight: bold;
+    /* font-weight: bold; */
     background-color: #333333;
 }
 
 div.post_header {
     width: 100%;
+    padding-left: 0.5em;
 }
 
 div.post span.title
 {
     width: 80%;
     text-align: left;
-    font-family: Georgia, serif;
+    font-family: Helvetica;
     font-size: 2.2em;
+    color: #FFFF44;
 }
 
 div.post span.date
 {
     width: 20%;
     font-size: 0.8em;
+    font-style: italic;
     display: block;
 }
 
@@ -78,4 +80,24 @@ div.post div.content
     margin-left: 10px;
     margin-right: 10px;
     font-size: 1.1em;
+}
+
+div.post div.comments
+{
+    margin-top: 2em;
+    margin-left: 0.5em;
+}
+
+div.post div.comments span
+{
+    font-size: 1.5em;
+    color: #FFFF44;
+
+}
+
+div.post div.comments p
+{
+    display: block;
+    font-style: italic;
+    margin-top: 1em;
 }

@@ -45,8 +45,9 @@
                       (span (@ (class "title"))
                             ,(blog-post-title post))
                       (span (@ (class "date"))
-                            "Post date: " ,(blog-post-publish-date post)))
-           (div (@ (class "content")) ,(blog-post-content post)))) posts)))
+                            "Posted: " ,(blog-post-publish-date post)))
+                 (div (@ (class "content")) ,(blog-post-content post))
+                 (div (@ (class "comments")) (span "Comments") (p "No comments have been posted yet.")))) posts)))
 
 (define (make-blog-post-from-record record)
   (apply make-blog-post record))
