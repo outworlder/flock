@@ -35,7 +35,8 @@
           (h1
            "Paleolithic Computing")
           (h2 "Because Computer Science is still in the stone age..."))
-     ,(render-blog-posts))))
+     (div (@ (class "site_content"))
+     ,(render-blog-posts)))))
 
 (define (render-blog-posts)
   (let ([posts (get-blog-posts)])
@@ -45,9 +46,10 @@
                       (span (@ (class "title"))
                             ,(blog-post-title post))
                       (span (@ (class "date"))
-                            "Posted: " ,(blog-post-publish-date post)))
+                            "Posted: " ,(seconds->string (blog-post-publish-date post))))
                  (div (@ (class "content")) ,(blog-post-content post))
-                 (div (@ (class "comments")) (span "Comments") (p "No comments have been posted yet.")))) posts)))
+                 (div (@ (class "comments")) (span "Comments") (p "No comments have been posted yet."))
+                 (div (@ (class "post_footer"))))) posts)))
 
 (define (make-blog-post-from-record record)
   (apply make-blog-post record))
