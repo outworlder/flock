@@ -34,7 +34,7 @@
      (div (@ (class "header"))
           (h1
            "Paleolithic Computing")
-          (h2 "Because Computer Science is still in its infancy..."))
+          (h2 "Because Computer Science is still in the stone age..."))
      ,(render-blog-posts))))
 
 (define (render-blog-posts)

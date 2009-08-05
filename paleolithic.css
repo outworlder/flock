@@ -6,14 +6,18 @@ body
     font-size: 1em;
     color: #FFFFFF;
     margin-top: 0 !important;
-    margin-left: 0;
-    margin-right: 0;
+    margin-left: 1em;
+    margin-right: 1em;
     padding-top: 0;
+    background-color: #222222;
+    /* background-image: url("paleolithic.jpg"); */
 }
 
 h1
 {
-    text-align: center;
+    padding-top: 0.3em;
+    text-align: left;
+    font-family: sans-serif;
 }
 
 h2
@@ -27,16 +31,22 @@ h2
 div.header
 {
     background-color: #222222;
-    padding-top: 1.5em;
+    background-image: url("stonehenge_header.jpg");
+    background-repeat: no-repeat;
+    height:314px;
+    width:1024px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 div.post
 {
-    background-color: #444444;
-    border: solid 1px;
-    width: 70%;
+    padding-top:0.5em;
+    width: 1024px;
     margin-right: auto;
+    margin-left: auto;
     font-weight: bold;
+    background-color: #333333;
 }
 
 div.post_header {
@@ -46,8 +56,7 @@ div.post_header {
 div.post span.title
 {
     width: 80%;
-    float: left;
-    text-align: center;
+    text-align: left;
     font-family: Georgia, serif;
     font-size: 2.2em;
 }
@@ -55,8 +64,8 @@ div.post span.title
 div.post span.date
 {
     width: 20%;
-    float: right;
     font-size: 0.8em;
+    display: block;
 }
 
 div.post div.content
