@@ -1,0 +1,12 @@
+; Markdown Silex Lexer specification
+
+digit	   [0-9]
+letter	   [a-zA-Z]
+quote	   [/]
+html-tag   <.*>
+indent	   " "{4}
+character  .
+
+%%
+
+[digit]	(list 'digit yytext)
