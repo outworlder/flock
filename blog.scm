@@ -1,5 +1,6 @@
 (include "config.scm")
 (include "dependencies.scm")
+(include "widgets.scm")
 
 (define-record blog-post id title content publish-date visible)
 (define-record-printer blog-post        ;TODO: It is not respecting the output port
@@ -16,9 +17,6 @@
   (print xhtml-1.0-strict)
   (SXML->HTML (page))
   (print))
-
-(define (stylesheet-link href #!key (media 'screen))
-  `(link (@ (rel "stylesheet") (type "text/css") (media ,media) (href ,href))))
 
 (define (make-blog-post-from-record record)
   (apply make-blog-post record))

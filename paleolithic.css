@@ -45,7 +45,8 @@ div.post
     padding-top:0.5em;
     margin-right: auto;
     padding-left: 1em;
-    width: 60%;
+    width: 70%;
+    background-color: #111111;
 }
 
 div.post_header {
@@ -113,6 +114,6 @@ div.post div.comments p
 div.post div.post_footer
 {
     margin-top: 1em;
-    border-top: solid 1px;
+    /* border-top: solid 1px; */
     margin-bottom: 0.5em;
 }
