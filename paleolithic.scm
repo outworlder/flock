@@ -1,17 +1,12 @@
 (include "blog.scm")
 
 (define (index #!rest args)
-  `(html
-    (head 
-     (title "Paleolithic Computing / Blog")
-     ,(stylesheet-link "/paleolithic.css"))
-    (body
-     (div (@ (class "header"))
+  `((div (@ (class "header"))
           (h1
            "Paleolithic Computing")
           (h2 "Because Computer Science is still in the stone age..."))
      (div (@ (class "site_content"))
-     ,(render-blog-posts)))))
+     ,(render-blog-posts))))
 
 (define (render-blog-posts)
   (let ([posts (get-blog-posts)])
@@ -29,4 +24,5 @@
 (define (render-comment post)
   '(div (@ (class "comments")) (span "Comments") (p "No comments have been posted yet.")))
 
-(send-cgi-response index)
+(send-cgi-response (html-body "Paleolithic Computing / Blog"  index
+                              (stylesheet-link "/paleolithic.css")))
