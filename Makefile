@@ -1,12 +1,14 @@
 # Makefile for the Flock project
+CSC=csc
+OBJECTS=paleolithic post comment_posted
 
-all: paleolithic post comment_posted
+.PHONY: all clean
 
-paleolithic: paleolithic.scm
-	csc paleolithic.scm -o cgi-bin/paleolithic
+all: $(OBJECTS)
 
-post: post.scm
-	csc post.scm -o cgi-bin/post
+%::%.scm
+	$(CSC) $@.scm -o cgi-bin/$@
 
-comment_posted: comment_posted.scm
-	csc comment_posted.scm -o cgi-bin/comment_posted
+clean:
+	rm cgi-bin/*
+
