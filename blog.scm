@@ -11,11 +11,25 @@
     (print "Visible: " (blog-post-visible record))
     (print "Content: " (blog-post-content record))))
 
+(define (STANDARD-EXCEPTION-SCREEN exn)
+  ((html-body "Error"
+              (lambda ()
+                `(div (@ (class "error_box"))
+                      (span "An error has ocurred:")
+                      (div (@ (class "error_text"))
+                      ,((condition-property-accessor 'exn 'message) exn))))
+              (stylesheet-link "/error.css"))))
+
+(define (handle-error thunk #!optional [screen STANDARD-EXCEPTION-SCREEN])
+  (handle-exceptions exn
+   (screen exn)
+   (thunk)))
+
 (define (send-cgi-response page)
   (print "Content-type: text/html")
   (print)
   (print xhtml-1.0-strict)
-  (SXML->HTML (page))
+  (SXML->HTML (handle-error page))
   (print))
 
 (define (make-blog-post-from-record record)
