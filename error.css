@@ -1,0 +1,33 @@
+body
+{
+    font-family: Arial;
+    font-size: 1em;
+    color: #FFFFFF;
+    margin-top: 0 !important;
+    margin-left: 1em;
+    margin-right: 1em;
+    padding-top: 0;
+    background: #AAAAAA url("bkg_main.jpg") repeat-x scroll 0 0;
+}
+
+div.error_box
+{
+    background-color: darkRed;
+    border: medium solid;
+    margin: 10% auto auto;
+    width: 30%;
+    height: 100px;
+    padding: 1em;
+}
+
+div.error_box span
+{
+    text-align: left;
+    font-weight: bold;
+}
+
+div.error_text
+{
+    text-align: center;
+    margin-top: 1em;
+}
