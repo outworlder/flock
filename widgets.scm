@@ -1,9 +1,10 @@
 (define (html-body title body #!optional [headers '()] )
   (lambda ()
     `(html
-      (head (@ title ,title)
+      (head (title ,title)
             ,headers)
-      ,(body))))
+      (body
+       ,(body)))))
 
 (define (textfield id name type)
   `((label (@ (for ,id)) ,name)
