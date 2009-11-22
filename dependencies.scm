@@ -3,3 +3,4 @@
 (use doctype)
 (use sql-de-lite)
 (use posix)                             ;Posix date and time manipulation
+(use uri-dispatch)

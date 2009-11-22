@@ -12,3 +12,12 @@
 
 (define (stylesheet-link href #!key (media 'screen))
   `(link (@ (rel "stylesheet") (type "text/css") (media ,media) (href ,href))))
+
+(define (STANDARD-EXCEPTION-SCREEN exn)
+  ((html-body "Error"
+              (lambda ()
+                `(div (@ (class "error_box"))
+                      (span "An error has ocurred:")
+                      (div (@ (class "error_text"))
+                      ,((condition-property-accessor 'exn 'message) exn))))
+              (stylesheet-link "/error.css"))))

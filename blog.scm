@@ -1,6 +1,7 @@
 (include "config.scm")
 (include "dependencies.scm")
 (include "widgets.scm")
+(include "sql.scm")
 
 (define-record blog-post id title content publish-date visible)
 (define-record-printer blog-post        ;TODO: It is not respecting the output port
@@ -10,15 +11,6 @@
     (print "Publish date: " (blog-post-publish-date record))
     (print "Visible: " (blog-post-visible record))
     (print "Content: " (blog-post-content record))))
-
-(define (STANDARD-EXCEPTION-SCREEN exn)
-  ((html-body "Error"
-              (lambda ()
-                `(div (@ (class "error_box"))
-                      (span "An error has ocurred:")
-                      (div (@ (class "error_text"))
-                      ,((condition-property-accessor 'exn 'message) exn))))
-              (stylesheet-link "/error.css"))))
 
 (define (handle-error thunk #!optional [screen STANDARD-EXCEPTION-SCREEN])
   (handle-exceptions exn
@@ -34,25 +26,6 @@
 
 (define (make-blog-post-from-record record)
   (apply make-blog-post record))
-   
-(define (get-latest-blog-post)
-  (call-with-database *database*
-                      (lambda (database)
-                        (make-blog-post-from-record (query fetch  (sql database "select id, title, content, publishdate, visible from posts order by publishdate DESC limit 1"))))))
-
-(define (get-blog-posts)
-  (call-with-database *database*
-                      (lambda (database)
-                        (query (map-rows make-blog-post-from-record) (sql database "select id, title, content, publishdate, visible from posts order by publishdate DESC")))))
-
-(define SQL-TRUE 1)
-
-(define SQL-FALSE 0)
-
-(define (add-blog-post title content #!key (visible SQL-FALSE))
-  (call-with-database *database*
-                      (lambda (database)
-                        (exec (sql database "insert into posts (content, publishdate, title, visible) values (?, ?, ?, ?);") content (current-seconds) title visible))))
 
 (define (handle-form-post form-data-set)
   (form-urldecode form-data-set))
