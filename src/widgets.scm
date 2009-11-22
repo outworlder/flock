@@ -10,8 +10,11 @@
   `((label (@ (for ,id)) ,name)
     (input (@ (type ,type) (name ,name) (id ,id)))))
 
+(define (make-asset-path type resource)
+  (conc (cadr (assoc type *assets*)) resource))
+
 (define (stylesheet-link href #!key (media 'screen))
-  `(link (@ (rel "stylesheet") (type "text/css") (media ,media) (href ,href))))
+  `(link (@ (rel "stylesheet") (type "text/css") (media ,media) (href ,(make-asset-path 'stylesheet href)))))
 
 (define (STANDARD-EXCEPTION-SCREEN exn)
   ((html-body "Error"

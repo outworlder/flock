@@ -7,8 +7,8 @@ OBJECTS=paleolithic post comment_posted
 all: $(OBJECTS)
 
 %::%.scm
-	$(CSC) $@.scm -o cgi-bin/$@
+	$(CSC) $@.scm -o ../cgi-bin/$@
 
 clean:
-	rm cgi-bin/*
+	rm ../cgi-bin/*
 
