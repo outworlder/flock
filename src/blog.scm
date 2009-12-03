@@ -5,15 +5,7 @@
 (include "paleolithic.scm")
 (include "post.scm")
 (include "comment_posted.scm")
-
-(define-record blog-post id title content publish-date visible)
-(define-record-printer blog-post        ;TODO: It is not respecting the output port
-  (lambda (record port)
-    (print "[BLOG POST]")
-    (print "Title: " (blog-post-title record))
-    (print "Publish date: " (blog-post-publish-date record))
-    (print "Visible: " (blog-post-visible record))
-    (print "Content: " (blog-post-content record))))
+(include "blog_model.scm")
 
 (define (handle-error thunk #!optional [screen STANDARD-EXCEPTION-SCREEN])
   (handle-exceptions exn
@@ -26,9 +18,6 @@
   (print xhtml-1.0-strict)
   (SXML->HTML (handle-error page))
   (print))
-
-(define (make-blog-post-from-record record)
-  (apply make-blog-post record))
 
 (define (handle-form-post form-data-set)
   (form-urldecode form-data-set))
