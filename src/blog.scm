@@ -2,6 +2,9 @@
 (include "dependencies.scm")
 (include "widgets.scm")
 (include "sql.scm")
+(include "paleolithic.scm")
+(include "post.scm")
+(include "comment_posted.scm")
 
 (define-record blog-post id title content publish-date visible)
 (define-record-printer blog-post        ;TODO: It is not respecting the output port
@@ -60,3 +63,15 @@
                 current-data
                 (begin
                   (loop (+ x 1) x-max (append current-data (list (read-char))))))))))))
+
+;; Obtains the full request URI
+;; TODO: It is broken. Should strip the server version from SERVER_PROTOCOL
+(define (request-uri)
+  (map (lambda (x)
+         (getenv x))
+         '("SERVER_PROTOCOL"
+          "SERVER_PORT"
+          "PATH_INFO")))
+
+
+(dispatch-uri (uri-reference (getenv "PATH_INFO")))

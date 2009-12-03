@@ -1,5 +1,3 @@
-(include "blog.scm")
-
 (define (comment-posted-view)
   `((div (@ (class "header"))
          (h1 "Post a new comment")

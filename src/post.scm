@@ -1,5 +1,3 @@
-(include "blog.scm")
-
 (define (make-form-post)
   `((div (@ (class "content"))
          (form (@ (method post) (action "comment_posted"))

@@ -1,5 +1,3 @@
-(include "blog.scm")
-
 (define (index #!rest args)
   `((div (@ (class "header"))
           (h1
