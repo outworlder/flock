@@ -2,3 +2,5 @@
 
 (define SQL-FALSE 0)
 
+(define (default-database)
+  *database*)
