@@ -1,6 +1,6 @@
 # Makefile for the Flock project
 CSC=csc
-OBJECTS=paleolithic
+OBJECTS=blog
 
 .PHONY: all clean
 

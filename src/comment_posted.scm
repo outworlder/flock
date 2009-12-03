@@ -4,5 +4,5 @@
          (h2 "Comment posted successfully..."))
     (h1 "Result" (div ,(handle-post)))))
 
-(send-cgi-response (html-body "Comment posted" comment-posted-view
-                              (stylesheet-link "/paleolithic.css")))
+;; (send-cgi-response (html-body "Comment posted" comment-posted-view
+;;                               (stylesheet-link "/paleolithic.css")))

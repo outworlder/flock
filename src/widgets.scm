@@ -16,11 +16,23 @@
 (define (stylesheet-link href #!key (media 'screen))
   `(link (@ (rel "stylesheet") (type "text/css") (media ,media) (href ,(make-asset-path 'stylesheet href)))))
 
+(define (get-error-message exn)
+  (with-output-to-string
+    (lambda ()
+      (print-error-message exn))))
+
+(define (get-backtrace)
+  (with-output-to-string
+    (lambda ()
+      (print-call-chain (current-output-port) 2))))
+
 (define (STANDARD-EXCEPTION-SCREEN exn)
   ((html-body "Error"
               (lambda ()
                 `(div (@ (class "error_box"))
                       (span "An error has ocurred:")
                       (div (@ (class "error_text"))
-                      ,((condition-property-accessor 'exn 'message) exn))))
+                           ,(get-error-message exn)
+                           (br)
+                           ,(get-backtrace))))
               (stylesheet-link "/error.css"))))

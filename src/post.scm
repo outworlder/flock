@@ -17,6 +17,6 @@
     (br)
     ,(make-form-post)))
 
-(send-cgi-response
- (html-body "Post a new comment" post-view
-            (stylesheet-link "/paleolithic.css")))
+;; (send-cgi-response
+;;  (html-body "Post a new comment" post-view
+;;             (stylesheet-link "/paleolithic.css")))

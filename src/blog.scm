@@ -62,5 +62,7 @@
           "SERVER_PORT"
           "PATH_INFO")))
 
+(define (define-page title #!optional header #!rest body)
+  (send-cgi-response (html-body title body header)))
 
-(dispatch-uri (uri-reference (getenv "PATH_INFO")))
+(send-cgi-response (lambda () (dispatch-uri (uri-reference (getenv "PATH_INFO")))))
