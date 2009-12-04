@@ -58,8 +58,10 @@
           "SERVER_PORT"
           "PATH_INFO")))
 
-(define (define-app index procedures #!optional (error 'nil))
-  (default-dispatch-target index))
+(define (define-app index procedures #!optional (error STANDARD-404))
+  (default-dispatch-target index)
+  (whitelist procedures)
+  (dispatch-error error))
 
 (define (define-page title #!optional header body)
   (html-body title body header))

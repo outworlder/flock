@@ -37,12 +37,12 @@
                            ,(get-backtrace))))
               (stylesheet-link "/error.css"))))
 
-(define (STANDARD-404 path)
-  ((html-body "404 Not Found"
+(define (STANDARD-404 #!rest path)
+  (html-body "404 Not Found"
               (lambda ()
                 `(div (@ (class "error_box"))
                       (span "Page not found:")
                       (div (@ (class "error_text"))
                            ,path)))
-              (stylesheet-link "/error.css"))))
+              (stylesheet-link "/error.css")))
                 
