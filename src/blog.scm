@@ -67,9 +67,11 @@
 (include "blog_model.scm")
 
 (send-cgi-response (lambda ()
-                     (let ([path-info (getenv "PATH_INFO")])
-                       (if path-info
-                           (dispatch-uri (uri-reference path-info))
-                           (STANDARD-404 path-info)))))
+                     (let ([path-info (or (getenv "PATH_INFO") "")])
+                       ((dispatch-uri (uri-reference path-info))))))
+;; TODO:
+;; Add index page
+;; Set the 404 page using the uri-dispatch egg
+
 
 
