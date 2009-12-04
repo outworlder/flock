@@ -16,7 +16,7 @@ div.error_box
     border: medium solid;
     margin: 10% auto auto;
     width: 30%;
-    height: 100px;
+    height: 100px auto;
     padding: 1em;
 }
 
