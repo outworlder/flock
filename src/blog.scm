@@ -2,10 +2,6 @@
 (include "dependencies.scm")
 (include "widgets.scm")
 (include "sql.scm")
-(include "paleolithic.scm")
-(include "post.scm")
-(include "comment_posted.scm")
-(include "blog_model.scm")
 
 (define (handle-error thunk #!optional [screen STANDARD-EXCEPTION-SCREEN])
   (handle-exceptions exn
@@ -63,6 +59,17 @@
           "PATH_INFO")))
 
 (define (define-page title #!optional header #!rest body)
-  (send-cgi-response (html-body title body header)))
+  (html-body title body header))
 
-(send-cgi-response (lambda () (dispatch-uri (uri-reference (getenv "PATH_INFO")))))
+(include "paleolithic.scm")
+(include "post.scm")
+(include "comment_posted.scm")
+(include "blog_model.scm")
+
+(send-cgi-response (lambda ()
+                     (let ([path-info (getenv "PATH_INFO")])
+                       (if path-info
+                           (dispatch-uri (uri-reference path-info))
+                           (STANDARD-404 path-info)))))
+
+

@@ -24,7 +24,7 @@
 (define (get-backtrace)
   (with-output-to-string
     (lambda ()
-      (print-call-chain (current-output-port) 2))))
+      (print-call-chain))))
 
 (define (STANDARD-EXCEPTION-SCREEN exn)
   ((html-body "Error"
@@ -36,3 +36,13 @@
                            (br)
                            ,(get-backtrace))))
               (stylesheet-link "/error.css"))))
+
+(define (STANDARD-404 path)
+  ((html-body "404 Not Found"
+              (lambda ()
+                `(div (@ (class "error_box"))
+                      (span "Page not found:")
+                      (div (@ (class "error_text"))
+                           ,path)))
+              (stylesheet-link "/error.css"))))
+                
