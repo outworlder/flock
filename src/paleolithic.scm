@@ -1,10 +1,13 @@
 (define (paleolithic #!rest args)
-  `((div (@ (class "header"))
-          (h1
-           "Paleolithic Computing")
-          (h2 "Because Computer Science is still in the stone age..."))
-     (div (@ (class "site_content"))
-     ,(render-blog-posts))))
+  (define-page "Paleolithic Computing / Blog"
+    (stylesheet-link "/paleolithic.css")
+    (lambda ()
+      `((div (@ (class "header"))
+             (h1
+              "Paleolithic Computing")
+             (h2 "Because Computer Science is still in the stone age..."))
+        (div (@ (class "site_content"))
+             ,(render-blog-posts))))))
 
 (define (render-blog-posts)
   (let ([posts (get-blog-posts)])

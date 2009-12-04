@@ -58,7 +58,10 @@
           "SERVER_PORT"
           "PATH_INFO")))
 
-(define (define-page title #!optional header #!rest body)
+(define (define-app index procedures #!optional (error 'nil))
+  (default-dispatch-target index))
+
+(define (define-page title #!optional header body)
   (html-body title body header))
 
 (include "paleolithic.scm")
@@ -66,12 +69,12 @@
 (include "comment_posted.scm")
 (include "blog_model.scm")
 
+(define-app paleolithic
+  '(paleolithic post comment-posted))
+
 (send-cgi-response (lambda ()
-                     (let ([path-info (or (getenv "PATH_INFO") "")])
+                     (let ([path-info (or (getenv "PATH_INFO") "/")])
                        ((dispatch-uri (uri-reference path-info))))))
 ;; TODO:
 ;; Add index page
 ;; Set the 404 page using the uri-dispatch egg
-
-
-
