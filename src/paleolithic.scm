@@ -1,4 +1,4 @@
-(define (index #!rest args)
+(define (paleolithic #!rest args)
   `((div (@ (class "header"))
           (h1
            "Paleolithic Computing")
@@ -25,5 +25,5 @@
 ;; (send-cgi-response (html-body "Paleolithic Computing / Blog"  index
 ;;                               (stylesheet-link "/paleolithic.css")))
 
-(define-page "Paleolithic Computing / Blog" (stylesheet-link "/paleolithic.css")
-  index)
+;; (define-page "Paleolithic Computing / Blog" (stylesheet-link "/paleolithic.css")
+;;   index)
