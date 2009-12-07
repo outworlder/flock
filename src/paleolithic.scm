@@ -24,9 +24,3 @@
 
 (define (render-comment post)
   '(div (@ (class "comments")) (span "Comments") (p "No comments have been posted yet.")))
-
-;; (send-cgi-response (html-body "Paleolithic Computing / Blog"  index
-;;                               (stylesheet-link "/paleolithic.css")))
-
-;; (define-page "Paleolithic Computing / Blog" (stylesheet-link "/paleolithic.css")
-;;   index)
