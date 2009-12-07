@@ -1,5 +1,6 @@
 ;; TODO: Use the module system and replace with (use)
-(include "flock")
+;;(include "flock")
+(use flock)
 
 (include "paleolithic")
 (include "post")
