@@ -77,6 +77,3 @@
 (send-cgi-response (lambda ()
                      (let ([path-info (or (getenv "PATH_INFO") "/")])
                        ((dispatch-uri (uri-reference path-info))))))
-;; TODO:
-;; Add index page
-;; Set the 404 page using the uri-dispatch egg
