@@ -1,6 +1,8 @@
 ;; TODO: Use the module system and replace with (use)
 ;;(include "flock")
+
 (use flock)
+(use sql-de-lite)
 
 (include "paleolithic")
 (include "post")
