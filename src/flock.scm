@@ -1,4 +1,11 @@
-(module flock (define-app define-page process-cgi stylesheet-link default-database)
+(module flock (define-app
+                define-page
+                process-cgi
+                stylesheet-link
+                default-database
+                textfield
+                handle-post
+                )
   (import scheme)
   (import chicken)
   (import ports)
@@ -11,15 +18,14 @@
 
   (define (handle-error thunk #!optional [screen STANDARD-EXCEPTION-SCREEN])
     (handle-exceptions exn
-                       (screen exn)
+                       ((screen exn))
                        (thunk)))
 
   (define (send-cgi-response page)
     (print "Content-type: text/html")
     (print)
-    (print xhtml-1.0-strict)
-    (SXML->HTML (handle-error page))
-    (print))
+    (print html-4.01-strict)
+    (SXML->HTML (handle-error page)))
 
   (define (handle-form-post form-data-set)
     (form-urldecode form-data-set))
@@ -64,6 +70,19 @@
            "SERVER_PORT"
            "PATH_INFO")))
 
+  ;; Convenience function to load all scheme files in a given directory
+  ;; TODO: OOps. The include directive runs as soon as it is encountered
+  ;; (define (include-directory #!optional (initial-dir (current-directory)))
+  ;;                            (unless (directory? initial-dir)
+  ;;                              (signal 'NOT-A-DIRECTORY)
+  ;;                              (let ([old (current-directory)]) ;Unfortunate side-effect. Let's save the directory then
+  ;;                                (change-directory (current-directory))
+  ;;                                (map (lambda (file)
+  ;;                                       (include file)
+  ;;                                       (directory dir)))
+  ;;                                (change-directory old))))
+  
+  
   (define (define-app index procedures #!optional (error STANDARD-404))
     (default-dispatch-target index)
     (whitelist procedures)

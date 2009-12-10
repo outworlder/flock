@@ -27,15 +27,15 @@
       (print-call-chain))))
 
 (define (STANDARD-EXCEPTION-SCREEN exn)
-  ((html-body "Error"
-              (lambda ()
-                `(div (@ (class "error_box"))
-                      (span "An error has ocurred:")
-                      (div (@ (class "error_text"))
-                           ,(get-error-message exn)
-                           (br)
-                           ,(get-backtrace))))
-              (stylesheet-link "/error.css"))))
+  (html-body "Error"
+               (lambda ()
+                 `(div (@ (class "error_box"))
+                       (span "An error has ocurred:")
+                       (div (@ (class "error_text"))
+                            ,(get-error-message exn)
+                            (br)
+                            ,(get-backtrace))))
+               (stylesheet-link "/error.css")))
 
 (define (STANDARD-404 #!rest path)
   (html-body "404 Not Found"
