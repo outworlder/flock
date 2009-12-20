@@ -1,7 +1,8 @@
-(define *database* "/home/stephen/projects/git/flock/paleolithic.sqlite") ;TODO: Absolute paths suck!
+(define *database* "/home/stephen/projects/flock/paleolithic.sqlite") ;TODO: Absolute paths suck!
 
 (define *assets*
   '((stylesheet "/assets/stylesheets")
     (image "/assets/images")
-    ('assets "/assets")))
+    (assets "/assets")
+    (javascript "/assets/javascripts")))
           

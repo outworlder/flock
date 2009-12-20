@@ -1,7 +1,5 @@
-(define (comment-posted #!rest args)
-  (define-page "Comment posted"
+(define-page comment-posted "Comment posted"
     (stylesheet-link "/paleolithic.css")
-    (lambda ()
       `((div (@ (class "header"))
              (h1 "Post a new comment")
              (h2 "Comment posted successfully..."))
@@ -9,4 +7,4 @@
         (div (@ (class "site_content"))
              (div (@ (class "post"))
                   (h1 "Result")
-                  ,(cdar (handle-post))))))))
+                  ,(cdar (handle-post))))))

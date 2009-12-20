@@ -16,6 +16,10 @@
 (define (stylesheet-link href #!key (media 'screen))
   `(link (@ (rel "stylesheet") (type "text/css") (media ,media) (href ,(make-asset-path 'stylesheet href)))))
 
+(define (javascript-link href)
+  `(script (@ (type "text/javascript") (src ,(make-asset-path 'javascript href)))))
+
+
 (define (get-error-message exn)
   (with-output-to-string
     (lambda ()

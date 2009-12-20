@@ -10,14 +10,12 @@
                (input (@ (type submit) (value "Submit")))
                (input (@ (type reset) (value "Clear")))))))
 
-(define (post #!rest args)
-  (define-page "Post a new comment"
+(define-page post "Post a new comment"
     (stylesheet-link "/paleolithic.css")
-    (lambda ()
       `((div (@ (class "header"))
              (h1 "New blog post")
              (h2 "Lambda"))
         (br)
         (div (@ (class "site_content"))
              (div (@ (class "post"))
-                  ,(make-form-post)))))))
+                  ,(make-form-post)))))

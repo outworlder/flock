@@ -2,9 +2,12 @@
                 define-page
                 process-cgi
                 stylesheet-link
+                javascript-link
                 default-database
                 textfield
                 handle-post
+                process-request
+                html-body
                 )
   (import scheme)
   (import chicken)
@@ -81,15 +84,36 @@
   ;;                                       (include file)
   ;;                                       (directory dir)))
   ;;                                (change-directory old))))
+
+  (define (has-form?)
+    (equal? (getenv "REQUEST_TYPE") "POST"))
+ 
+  (define (page-template function)
+    (let ([form-data (process-request)])
+      (function form-data)))
+
+  (define-syntax define-page
+    (syntax-rules ()
+      ((_ name title headers body ...) (define (name #!rest params)
+                                         (let ([post-data (process-request)])
+                                           (let ([form-data (if post-data
+                                                               (append post-data params)
+                                                               params)])
+                                                           (html-body name
+                                                                      (lambda ()
+                                                                        body ...) headers)))))
+      ((_ name title body ...) (define-page title '() body ...))))
   
+  ;; Processes a request. This includes cookies, sessions and forms
+  (define (process-request)
+    (if (has-form?)
+        (handle-post)
+        #f))
   
   (define (define-app index procedures #!optional (error STANDARD-404))
     (default-dispatch-target index)
     (whitelist procedures)
     (dispatch-error error))
-
-  (define (define-page title #!optional header body)
-    (html-body title body header))
 
   (define (process-cgi)
     (send-cgi-response (lambda ()
