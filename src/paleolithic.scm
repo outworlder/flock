@@ -9,18 +9,11 @@
              ,(render-blog-posts))
         ,(render-disqus-script)))
 
-(define (render-blog-posts)
-  (let ([posts (get-blog-posts)])
-    (map (lambda (post)
-           `(div (@ (class "post"))
-                 (div (@ (class "post_header"))
-                      (span (@ (class "title"))
-                            ,(blog-post-title post))
-                      (span (@ (class "date"))
-                            "Posted: " ,(seconds->string (blog-post-publish-date post))))
-                 (div (@ (class "content")) ,(blog-post-content post))
-                 ,(render-comment post)
-                 (div (@ (class "post_footer"))))) posts)))
+(define-page "index"
+  (lambda ()
+    (++ (<div> class: "header")
+        (<h1> "Paleolithic Computing")
+        (<h2> "Because Computer Science is still in the stone age...")
 
 ;; (define (render-comment post)
 ;;   '(div (@ (class "comments")) (span "Comments") (p "No comments have been posted yet.")))
