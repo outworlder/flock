@@ -1,8 +1,5 @@
 (use spiffy awful html-tags sql-de-lite)
 
-;; (include "paleolithic")
-;; (include "post")
-;; (include "comment_posted")
 (include "src/config")
 (include "src/blog_model")
 
@@ -30,14 +27,14 @@
 (define-page (main-page-path)
   (lambda ()
     (++ 
-    (<div> class: "header"
-        (<h1> "Paleolithic Computing")
-        (<h2> "Because Computer Science is still in the stone age..."))
-    (<div> class: "content"
+     (<div> class: "header"
+            (<h1> "Paleolithic Computing")
+            (<h2> "Because Computer Science is still in the stone age..."))
+     (<div> class: "content"
             (render-blog-posts)))))
 
 (define (render-blog-posts)
-  (let ([posts (get-blog-posts)])
+  (apply ++
     (map (lambda (post)
            (<div> class: "post"
            (<div> class: "post_header"
@@ -48,8 +45,13 @@
                   (<div> class: "content"
                          (blog-post-content post)
                          (render-comment post))
-                  (<div> class: "post_footer")))) posts)))
+                  (<div> class: "post_footer")))) (get-blog-posts))))
 
 (define (render-comment post)
-  "")
+  (<div> class: "comments" 
+        (render-disqus-block)))
+
+(define (render-disqus-block)
+  (<div> id: "diqus_thread"
+    (<script> type: "text/javascript" src: "http://disqus.com/forums/paleolithic-computing-blog/embed.js")))
 
