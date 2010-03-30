@@ -1,8 +1,13 @@
 (use spiffy awful html-tags sql-de-lite)
+(use autoform)
 
 (include "src/config")
 (include "src/blog_model")
 (include "src/authentication")
+(include "src/helper")
+(include "src/user_admin")
+
+;; TODO: Add a sort of "include dependencies"
 
 (define (main-template page)
   (++ 
@@ -11,24 +16,26 @@
           (<h2> "Because Computer Science is still in the stone age..."))
    (<div> class: "content"
           (if page (page) ""))))
-  
+
+(include "src/post")
+
 (define-page (main-page-path)
   (lambda ()
     (main-template render-blog-posts)))
 
 (define (render-blog-posts)
-  (apply ++
-    (map (lambda (post)
-           (<div> class: "post"
-           (<div> class: "post_header"
-                  (<span> class: "title"
-                          (blog-post-title post))
-                  (<span> class: "date"
-                          "Posted: " (seconds->string (blog-post-publish-date post)))
-                  (<div> class: "content"
-                         (blog-post-content post)
-                         (render-comment post))
-                  (<div> class: "post_footer")))) (get-blog-posts))))
+  (map-web
+   (lambda (post)
+     (<div> class: "post"
+            (<div> class: "post_header"
+                   (<span> class: "title"
+                           (blog-post-title post))
+                   (<span> class: "date"
+                           "Posted: " (seconds->string (blog-post-publish-date post)))
+                   (<div> class: "content"
+                          (blog-post-content post)
+                          (render-comment post))
+                   (<div> class: "post_footer")))) (get-blog-posts)))
 
 (define (render-comment post)
   (<div> class: "comments" 

@@ -1,21 +1,19 @@
-(define (make-form-post)
-  `((div (@ (class "content"))
-         (form (@ (method post) (action "comment-posted"))
-               ,(textfield 'title "title" 'textbox)
-               (br)
-               (br)
-               (textarea (@ (cols 80) (rows 10) (name post_message)))
-               (br)
-               (br)
-               (input (@ (type submit) (value "Submit")))
-               (input (@ (type reset) (value "Clear")))))))
-
-(define-page post "Post a new comment"
-    (stylesheet-link "/paleolithic.css")
-      `((div (@ (class "header"))
-             (h1 "New blog post")
-             (h2 "Lambda"))
-        (br)
-        (div (@ (class "site_content"))
-             (div (@ (class "post"))
-                  ,(make-form-post)))))
+(define-page "post"
+  (lambda ()
+    (main-template
+     (lambda ()
+       (++ (<div> class: "header"
+                  "Post new entry")
+           (<div> class: "site_content"
+                  (new-post-form)))))))
+                                
+(define (new-post-form)
+  (form
+   (lambda ()
+     (++
+      (<div> class: "field_title"
+             "Title:"
+             (<input> type: "text" id: "post_title"))
+      (<div> class: "field_post"
+             "Post:"
+             (<textarea> id: "post_body")))) action: "/add-post" method: "post"))
