@@ -46,4 +46,4 @@
   (lambda()
     (main-template
      (lambda()
-       (add-user ($ "username") ($ "password"))))) no-session: #t)
+       (add-user ($ 'username) ($ 'password))))) no-session: #t)

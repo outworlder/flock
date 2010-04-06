@@ -1,6 +1,6 @@
 (use awful awful-sql-de-lite)
 
-(define *database* "/Users/spedrosa/Documents/Projects/flock/paleolithic.sqlite") ;TODO: Absolute paths suck!
+(define *database* "paleolithic.sqlite")
 
 (define *assets*
   '((stylesheet "/assets/stylesheets")
@@ -9,7 +9,7 @@
     (javascript "/assets/javascripts")))
 
 (enable-db)
-(db-credentials "/Users/spedrosa/Documents/Projects/flock/paleolithic.sqlite")
+(db-credentials *database*)
 
 (web-repl-access-control
  (lambda ()

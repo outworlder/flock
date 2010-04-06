@@ -40,7 +40,7 @@ div.header
     margin-right: auto;
 }
 
-div.post
+div.post, #main_content
 {
     padding-top:0.5em;
     margin-right: auto;
@@ -48,6 +48,16 @@ div.post
     width: 70%;
     background-color: #111111;
 }
+
+#rightbar
+{
+    background-color: #222222;
+    width: 30%;
+    padding-top:0.5em;
+    margin-right: 1em;
+    margin-left: auto;
+}
+
 
 div.post_header {
     width: 100%;
@@ -71,7 +81,7 @@ div.post span.date
     display: block;
 }
 
-div.site_content
+#site_content
 {
     width: 1024px;
     margin-left: auto;

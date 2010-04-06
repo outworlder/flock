@@ -5,6 +5,7 @@
 (include "src/blog_model")
 (include "src/authentication")
 (include "src/helper")
+(include "src/admin")
 (include "src/user_admin")
 
 ;; TODO: Add a sort of "include dependencies"
@@ -14,7 +15,7 @@
    (<div> class: "header"
           (<h1> "Paleolithic Computing")
           (<h2> "Because Computer Science is still in the stone age..."))
-   (<div> class: "content"
+   (<div> id: "site_content"
           (if page (page) ""))))
 
 (include "src/post")
