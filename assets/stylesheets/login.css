@@ -1,0 +1,69 @@
+body
+{
+    background: #11111111;
+    color: #FFFFFF;
+}
+
+#login_prompt
+{
+    font: arial, helvetica, sans-serif;
+    width: 20em;
+    height: 20em;
+    display: block;
+    border-width: 1px;
+    border-style: solid;
+    background: #555555;
+    margin: auto;
+}
+
+div.login_title
+{
+    text-align: center;
+    text-size:1.5em;
+    padding-bottom: 1em;
+}
+
+div.login_form
+{
+    width: 80%;
+    margin: auto;
+    display: block;
+}
+
+span#user-container
+{
+
+}
+
+span#user-label
+{
+    float: left;
+    width: 30%;
+}
+
+input#user
+{
+    float: right;
+    width: 60%;
+}
+
+span#password-label
+{
+    float: left;
+    width: 30;
+}
+
+input#password
+{
+    float: right;
+    width: 60%;
+}
+
+input#login-submit
+{
+    display: block;
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+    clear: both;
+}

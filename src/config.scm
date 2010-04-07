@@ -23,12 +23,14 @@
 (debug-log (current-error-port))
 
 (page-exception-message
-	 (lambda (exn)
-	   (<pre> convert-to-entities?: #t
-	          (with-output-to-string
-	            (lambda ()
-	              (print-call-chain)
-	              (print-error-message exn))))))
+ (lambda (exn)
+   (<div> id: "error_block"
+          (<span> class: "error_title" "An error has occurred.")
+          (<pre> convert-to-entities?: #t
+                 (with-output-to-string
+                   (lambda ()
+                     (print-call-chain)
+                     (print-error-message exn)))))))
 
 (define (default-database)
   *database*)
