@@ -127,3 +127,15 @@ div.post div.post_footer
     /* border-top: solid 1px; */
     margin-bottom: 0.5em;
 }
+
+/* Error messages */
+div#error_block
+{
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    border: 2px white solid;
+    background: #550000;
+    top:50%;
+    min-width: 400px;
+}

@@ -48,5 +48,7 @@
 
 (define-page (login-page-path)
   (lambda ()
-    (login-form))
-  no-session: #t)
+    (<div> id: "login_prompt"
+           (<div> class: "login_title" "Enter your login")
+           (<div> class: "login_form"
+                  (login-form)))) no-session: #t css: "/assets/stylesheets/login.css")
