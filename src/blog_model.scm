@@ -1,4 +1,4 @@
-(include "src/model")
+(include "src/db")
 
 (define-record blog-post id title content publish-date visible)
 (define-record-printer blog-post        ;TODO: It is not respecting the output port
