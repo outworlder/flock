@@ -18,9 +18,9 @@
          (lambda (user)
            (<div> class: "user-info"
                   (<div> class: "login-header"
-                         "Login":)
+                         "Login:")
                   (<div> class: "login-data"
-                         (assoc 'login user))))))))
+                         (assoc 'login user)))) user-list))))
 
 (define (show-user-admin-controls)
    (<div> class: "user-controls"

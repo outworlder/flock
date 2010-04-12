@@ -1,3 +1,5 @@
+(use aql)
+
 (include "src/db")
 
 (define-record blog-post id title content publish-date visible)
@@ -13,10 +15,10 @@
   (apply make-blog-post record))
 
 (define (add-blog-post title content #!key (visible SQL-FALSE))
-  (db-exec "insert into posts (content, publishdate, title, visible) values (?, ?, ?, ?);" content (current-seconds) title visible))
+  (db-exec (insert posts (content publishdate title visible) (? ? ? ?)) content (current-seconds) title visible))
 
 (define (get-blog-posts)
-  (db-query (map-rows make-blog-post-from-record) "select id, title, content, publishdate, visible from posts order by publishdate DESC"))
+  (db-query (map-rows make-blog-post-from-record) (from posts (id title content publishdate visible) (order by (publishdate) desc))))
 
 (define (get-latest-blog-post)
-  (make-blog-post-from-record (db-query fetch "select id, title, content, publishdate, visible from posts order by publishdate DESC limit 1")))
+  (make-blog-post-from-record (db-query fetch (from posts (id title content publishdate visible) (order by (publishdate) desc) (limit 1)))))
