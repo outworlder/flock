@@ -7,6 +7,7 @@
 (include "src/comment_model")
 (include "src/authentication")
 (include "src/helper")
+(include "src/comment")
 (include "src/admin")
 (include "src/user_admin")
 
@@ -37,12 +38,12 @@
                            "Posted: " (seconds->string (blog-post-publish-date post)))
                    (<div> class: "content"
                           (blog-post-content post)
-                          (render-comment post))
+                          (render-comment (blog-post-id post)))
                    (<div> class: "post_footer")))) (get-blog-posts)))
 
-(define (render-comment post)
-  (<div> class: "comments" 
-        (render-disqus-block)))
+;; (define (render-comment post)
+;;   (<div> class: "comments" 
+;;         (render-disqus-block)))
 
 (define (render-disqus-block)
   (<div> id: "diqus_thread"

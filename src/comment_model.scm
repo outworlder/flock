@@ -20,5 +20,5 @@
 (define (get-comments)
   (db-query (map-rows make-comment-from-record) (from comments (id author email post_id comment))))
 
-(define (get-comment-by-post-id post_id)
-  (db-query fetch (from comments (id author email post_id comment) (where (= post_id post_id)))))
+(define (get-comments-by-post-id post_id)
+  (db-query (map-rows make-comment-from-record) (from comments (id author email post_id comment) (where (= post_id post_id)))))
