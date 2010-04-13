@@ -27,7 +27,18 @@
   (lambda ()
     (main-template render-blog-posts)))
 
-(define (render-blog-posts)
+;; (define-page "/posts"
+;;   (lambda ()
+;;     (main-template
+;;      (lambda ()))))
+
+;; How to map permalinks to the original post?
+;; Assuming SEO permalinks for now
+
+;; (define (permalink-to-post permalink)
+  
+
+(define (render-blog-posts #!optional (post-id #f))
   (map-web
    (lambda (post)
      (<div> class: "post"

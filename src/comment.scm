@@ -4,10 +4,11 @@
 (define (render-comment post-id)
   (let ([comments (get-comments-by-post-id post-id)])
     (if (null? comments)
-        (<div> class: "no_comments"
-               "No comments have been posted yet.")
+        (<div> class: "comments"
+               (<span>
+                "No comments have been posted yet."))
         (map-web
-         (<div> class: "comment"
+         (<div> class: "comments"
                 (<span> class: "comment_author"
                         (comment-author comment))
                 (<span> class: "comment_email"

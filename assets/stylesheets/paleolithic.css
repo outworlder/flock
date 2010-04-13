@@ -109,9 +109,9 @@ div.post div.comments
 
 div.post div.comments span
 {
-    font-size: 1.5em;
-    color: #FFFF44;
-
+    font-size: 0.8em;
+    color: #FF4444;
+    font-style: italic;
 }
 
 div.post div.comments p
