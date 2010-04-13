@@ -3,6 +3,8 @@
 
 (include "src/config")
 (include "src/blog_model")
+(include "src/user_model")
+(include "src/comment_model")
 (include "src/authentication")
 (include "src/helper")
 (include "src/admin")
