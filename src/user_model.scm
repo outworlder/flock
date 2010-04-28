@@ -23,4 +23,4 @@
 (define (get-user #!optional user)
   (if user
       (db-query (map-rows make-user-from-record) (from user (id login password)))
-      (db-query make-user-from-record (from user (id login password) (where (= id ?))) user)))
+      (db-query make-user-from-record (from user (id login password) (where (= id '?))) user)))

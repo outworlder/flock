@@ -2,6 +2,7 @@
 (use autoform)
 
 (include "src/config")
+(include "src/db")
 (include "src/blog_model")
 (include "src/user_model")
 (include "src/comment_model")
@@ -32,25 +33,31 @@
 ;;     (main-template
 ;;      (lambda ()))))
 
-;; How to map permalinks to the original post?
-;; Assuming SEO permalinks for now
-
-;; (define (permalink-to-post permalink)
-  
+(define-page "/post"
+  (lambda ()
+    (let ([post-id (get-blog-post-by-id ($ 'postid))])
+      (main-template
+       (lambda ()
+         (render-blog-posts post-id))))))
 
 (define (render-blog-posts #!optional (post-id #f))
-  (map-web
-   (lambda (post)
-     (<div> class: "post"
-            (<div> class: "post_header"
-                   (<span> class: "title"
-                           (blog-post-title post))
-                   (<span> class: "date"
-                           "Posted: " (seconds->string (blog-post-publish-date post)))
-                   (<div> class: "content"
-                          (blog-post-content post)
-                          (render-comment (blog-post-id post)))
-                   (<div> class: "post_footer")))) (get-blog-posts)))
+  (let ([post-function
+         (lambda (post)
+           (<div> class: "post"
+                  (<div> class: "post_header"
+                         (<span> class: "title"
+                                 (blog-post-title post))
+                         (<span> class: "date"
+                                 "Posted: " (seconds->string (blog-post-publish-date post)))
+                         (<div> class: "content"
+                                (blog-post-content post)
+                                (render-comment (blog-post-id post)))
+                         (<div> class: "post_footer"))))])
+    (if post-id
+        (post-function post-id)
+        (map-web
+         post-function
+         (get-blog-posts)))))
 
 ;; (define (render-comment post)
 ;;   (<div> class: "comments" 

@@ -1,6 +1,6 @@
 (use awful)
 
-(define-page "post"
+(define-page "/post-new"
   (lambda ()
     (main-template
      (lambda ()
