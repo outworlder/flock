@@ -46,7 +46,8 @@
            (<div> class: "post"
                   (<div> class: "post_header"
                          (<span> class: "title"
-                                 (blog-post-title post))
+                                 (link "/post" 
+                                       (blog-post-title post) arguments: `((postid . ,(blog-post-id post)))))
                          (<span> class: "date"
                                  "Posted: " (seconds->string (blog-post-publish-date post)))
                          (<div> class: "content"
