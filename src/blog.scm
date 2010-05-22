@@ -14,33 +14,23 @@
 
 ;; TODO: Add a sort of "include dependencies"
 
-(define (main-template page)
-  (++ 
-   (<div> class: "header"
-          (<h1> "Paleolithic Computing")
-          (<h2> "Because Computer Science is still in the stone age..."))
-   (<div> id: "site_content"
-          (if page (page) ""))))
+(define (main-template contents #!key css title (doctype "") (headers "") charset)
+  (html-page
+   (++ 
+    (<div> class: "header"
+           (<h1> "Paleolithic Computing")
+           (<h2> "Because Computer Science is still in the stone age..."))
+    (<div> id: "site_content"
+           (if contents contents ""))) css: css title: title doctype: doctype headers: headers charset: charset))
+
+(page-template main-template)
 
 (include "src/post")
-
-(define-page (main-page-path)
-  (lambda ()
-    (main-template render-blog-posts)))
 
 ;; (define-page "/posts" 
 ;;   (lambda ()
 ;;     (main-template
 ;;      (lambda ()))))
-
-(define-page "/post"
-  (lambda ()
-    (let ([blog-post (get-blog-post-by-id ($ 'postid))])
-      (main-template
-       (lambda ()
-         (if blog-post
-             (render-blog-posts blog-post)
-             (<h3> "Post not found.")))))))
 
 (define (render-blog-posts #!optional (post-id #f))
   (let ([post-function
@@ -64,6 +54,17 @@
          post-function
          (get-blog-posts)))))
 
+(define-page (main-page-path)
+  (lambda ()
+    (render-blog-posts)))
+
+(define-page "/post"
+  (lambda ()
+    (let ([blog-post (get-blog-post-by-id ($ 'postid))])
+         (if blog-post
+             (render-blog-posts blog-post)
+             (<h3> "Post not found.")))))
+
 ;; (define (render-comment post)
 ;;   (<div> class: "comments" 
 ;;         (render-disqus-block)))
@@ -74,7 +75,8 @@
 
 (define-page (login-page-path)
   (lambda ()
-    (<div> id: "login_prompt"
-           (<div> class: "login_title" "Enter your login")
-           (<div> class: "login_form"
-                  (login-form)))) no-session: #t css: "/assets/stylesheets/login.css")
+    (html-page 
+     (<div> id: "login_prompt"
+            (<div> class: "login_title" "Enter your login")
+            (<div> class: "login_form"
+                   (login-form))) css: "/assets/stylesheets/login.css")) no-session: #t no-template: #t)

@@ -2,12 +2,10 @@
 
 (define-page "/post-new"
   (lambda ()
-    (main-template
-     (lambda ()
-       (++ (<div> class: "header"
-                  "Post new entry")
-           (<div> class: "site_content"
-                  (new-post-form)))))))
+    (++ (<div> class: "header"
+               "Post new entry")
+        (<div> class: "site_content"
+               (new-post-form)))))
                                 
 (define (new-post-form)
   (form

@@ -27,23 +27,19 @@
           (<a> href: "add-user" "Add a new user")))
 
 (define-page "add-user"
-  (lambda()
-    (main-template
-     (lambda ()
-       (<div> class: "user-form"
-              (form
-                 (++
-                  "Add a new user"
-                  (<span> class: "user-field" "Username: ")
-                  (<input> type: "text" id: "username")
-                  (<span> class: "password-field" "Password: ")
-                  (<input> type: "text" id: "password")
-                  (<input> type: "submit" "Add User")
-                  (<input> type: "reset" "Clear")) action: "add-user-result" method: "post"))))) no-session: #t)
+  (lambda ()
+    (<div> class: "user-form"
+           (form
+            (++
+             "Add a new user"
+             (<span> class: "user-field" "Username: ")
+             (<input> type: "text" id: "username")
+             (<span> class: "password-field" "Password: ")
+             (<input> type: "text" id: "password")
+             (<input> type: "submit" "Add User")
+             (<input> type: "reset" "Clear")) action: "add-user-result" method: "post"))) no-session: #t)
 
 
 (define-page "add-user-result"
   (lambda()
-    (main-template
-     (lambda()
-       (add-user ($ 'username) ($ 'password))))) no-session: #t)
+    (add-user ($ 'username) ($ 'password))) no-session: #t)
