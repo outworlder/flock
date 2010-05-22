@@ -28,17 +28,19 @@
   (lambda ()
     (main-template render-blog-posts)))
 
-;; (define-page "/posts"
+;; (define-page "/posts" 
 ;;   (lambda ()
 ;;     (main-template
 ;;      (lambda ()))))
 
 (define-page "/post"
   (lambda ()
-    (let ([post-id (get-blog-post-by-id ($ 'postid))])
+    (let ([blog-post (get-blog-post-by-id ($ 'postid))])
       (main-template
        (lambda ()
-         (render-blog-posts post-id))))))
+         (if blog-post
+             (render-blog-posts blog-post)
+             (<h3> "Post not found.")))))))
 
 (define (render-blog-posts #!optional (post-id #f))
   (let ([post-function
@@ -52,7 +54,9 @@
                                  "Posted: " (seconds->string (blog-post-publish-date post)))
                          (<div> class: "content"
                                 (blog-post-content post)
-                                (render-comment (blog-post-id post)))
+                                (if post-id
+                                    (render-comment (blog-post-id post))
+                                    ""))
                          (<div> class: "post_footer"))))])
     (if post-id
         (post-function post-id)

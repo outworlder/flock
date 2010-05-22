@@ -1,3 +1,5 @@
+/* @override http://localhost:8080/assets/stylesheets/paleolithic.css */
+
 * { margin: 0; padding: 0; }
 
 body
@@ -9,7 +11,7 @@ body
     margin-left: 1em;
     margin-right: 1em;
     padding-top: 0;
-    background: #AAAAAA url("/assets/images/bkg_main.jpg") repeat-x scroll 0 0;
+    background: #999999 url("/assets/images/bkg_main.jpg") repeat-x scroll 0 0;
 }
 
 h1
@@ -62,6 +64,7 @@ div.post, #main_content
 div.post_header {
     width: 100%;
     padding-left: 0.5em;
+    padding-bottom: 1em;
 }
 
 div.post span.title
@@ -93,12 +96,11 @@ div.post div.content
 {
     font-family: Helvetica, arial;
     clear: both;
-    margin-top: 3em;
     text-align: justify;
-    margin-left: 10px;
-    margin-right: 10px;
     font-size: 1.1em;
-
+    margin-right: 10px;
+    margin-top: 3em;
+    margin-left: 10px;
 }
 
 div.post div.comments
@@ -126,6 +128,70 @@ div.post div.post_footer
     margin-top: 1em;
     /* border-top: solid 1px; */
     margin-bottom: 0.5em;
+}
+
+/* Comment box */
+
+div.comment_form
+{
+    font-family: verdana;
+    border-style: none;
+    border-width: 2px;
+    padding-top: 1em;
+}
+
+div.content form
+{
+    background: #AAAAAA url("/assets/images/bkg_main.jpg") repeat-x scroll 0;
+    width: 27em;
+    margin: 1em;
+}
+
+div.comment_form span
+{
+    float: left; 
+    clear: both;
+    margin:0.3em 0;
+    padding-right: 1em;
+    padding-left: 1em;
+}
+
+div.comment_form label
+{
+    width: 10%;
+    text-align: right;
+    padding-right: 2em;
+    float: left;
+}
+
+div.comment_form input
+{
+    padding:0.15em;
+    witdh: 10em;
+    -moz-border-radius:0.4em;
+    -khtml-border-radius:0.4em;
+    height: 2.5em;
+    width: 25em;
+}
+
+textarea#comment_area
+{
+    width: 40em;
+    height: 20em;
+}
+
+span.buttons
+{
+    padding: 5px;
+}
+
+span.buttons input
+{
+    margin: 1em;
+    width: 10em;
+    height: 2em;
+    background-color: yellow;
+    font: italic 0.8em verdana;
 }
 
 /* Error messages */

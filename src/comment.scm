@@ -1,4 +1,5 @@
 (use awful)
+(use html-utils)
 
 ;; TODO: Need to come up with a solution for XSS vulnerabilities.
 (define (render-comment post-id)
@@ -14,18 +15,27 @@
                 (<span> class: "comment_email"
                         (comment-email comment))
                 (<span> class: "comment"
-                        (comment-comment comment))) comments))))
+                        (comment-comment comment))) comments))
+    (render-comment-form post-id)))
 
-(define (render-comment-form)
+(define (render-comment-form post-id)
   (++
-   (<div> class: "comment_form"
-          (<span> class: "author_box"
-                  (text-input "Name:"))
-          (<span> class: "email_box"
-                  (text-input "Email:"))
-          (<span> class: "Comment"
-                  (textarea id: "comment_area"))
-          (submit-input value: "Post comment")
-          (<input> type: "reset" id: "reset_button"))))
+   (form 
+    (<div> class: "comment_form"
+           (<fieldset>
+            (<legend> "Post a comment")
+            (<span> class: "author_box"
+                    (<label> for: "author_name" "Name: ")
+                    (text-input "Name:" id: "author_name"))
+            (<span> class: "email_box"
+                    (<label> for: "author_email" "Email: ")
+                    (text-input "Email:" id: "author_email"))
+            (<span> class: "Comment"
+                    (<textarea> id: "comment_area"))
+            (<span> class: "buttons"
+                    (submit-input value: "Post comment")
+                    (<input> type: "reset" id: "reset_button")
+                    (<input> type: "hidden" id: "post-id" value: post-id))))
+           action: "post_comment" method: 'post)))
 
                   
