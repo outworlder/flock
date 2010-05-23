@@ -216,4 +216,5 @@ div#error_block
     background: #550000;
     top:50%;
     min-width: 400px;
+    overflow: auto;
 }
