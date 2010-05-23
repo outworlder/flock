@@ -61,14 +61,6 @@
              (render-blog-posts blog-post)
              (<h3> "Post not found.")))))
 
-;; (define (render-comment post)
-;;   (<div> class: "comments" 
-;;         (render-disqus-block)))
-
-(define (render-disqus-block)
-  (<div> id: "diqus_thread"
-         (<script> type: "text/javascript" src: "http://disqus.com/forums/paleolithic-computing-blog/embed.js")))
-
 (define-page (login-page-path)
   (lambda ()
     (html-page 
