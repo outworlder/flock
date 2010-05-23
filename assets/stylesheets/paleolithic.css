@@ -22,6 +22,18 @@ h1
     font-family: sans-serif;
 }
 
+h1 a:link, a:visited
+{
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+h1 a:hover, a:active
+{
+    color: 0000FF;
+    text-decoration: underline;
+}
+
 h2
 {
     margin-top: -10px;
@@ -137,7 +149,7 @@ div.comment_form
     font-family: verdana;
     border-style: none;
     border-width: 2px;
-    padding-top: 1em;
+    margin-top: 2em;
 }
 
 div.content form

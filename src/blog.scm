@@ -18,7 +18,8 @@
   (html-page
    (++ 
     (<div> class: "header"
-           (<h1> "Paleolithic Computing")
+           (<h1> 
+                 (link (main-page-path) "Paleolithic Computing"))
            (<h2> "Because Computer Science is still in the stone age..."))
     (<div> id: "site_content"
            (if contents contents ""))) css: css title: title doctype: doctype headers: headers charset: charset))
@@ -26,11 +27,6 @@
 (page-template main-template)
 
 (include "src/post")
-
-;; (define-page "/posts" 
-;;   (lambda ()
-;;     (main-template
-;;      (lambda ()))))
 
 (define (render-blog-posts #!optional (post-id #f))
   (let ([post-function
