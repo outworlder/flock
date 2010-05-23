@@ -1,5 +1,6 @@
 (use awful)
 (use regex-literals)
+(use srfi-1)
 
 ;; Fields is a alist of fields and the required validations.
 ;; Fields are taken from the request variables and matched.
@@ -10,20 +11,29 @@
 (define (with-validations fields #!key if)
   #f)
 
+;; TODO: Add forms to execute for when the validation passes and for when validation fails.
 (define-syntax with-validations
   (syntax-rules ()
-    ([_ (field (validation params ...) ...) ... ] (begin
-                                                    (++
-                                                     (let ([field-to-validate field]
-                                                           [field-value ($ 'field #f)])
-                                                       (++
-                                                        (validation field-to-validate field-value params ...) ...)) ...)))))
+    ([_ ((field (validation params ...) ...) ...) ] (begin
+                                                      (let ([validation-results
+                                                             (list
+                                                              (let ([field-value ($ 'field #f)])
+                                                                (++
+                                                                 (let ([validation-result 
+                                                                        (validation field-value params ...)])
+                                                                   (if (string? validation-result) ;Validation failed
+                                                                       validation-result)) ...)) ...)])
+                                                        (if (> (length (filter string? validation-results)) 0)
+                                                            validation-results ;Validation failed
+                                                            #t))))))
 
-;; Convenience macro to define validations. It will add two fields, for the field and session value
-(define-syntax define-validation
-  (syntax-rules ()
-    ([_ (name args ...) body ...] (define (name field-validate field-value args ...)
-                                    body ...))))
+ 
+;; Each validation function takes exactly one param
+(define (validate-presence value #!key (message "teste"))
+  (if (string? value)
+      #t
+      message))
+
 (define (set-flash key value)
   ($session-set 'flash (key . value)))
 
