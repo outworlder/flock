@@ -1,5 +1,4 @@
 (use spiffy awful html-tags sql-de-lite)
-(use autoform)
 
 (include "src/config")
 (include "src/db")
