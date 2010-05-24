@@ -161,11 +161,14 @@ div.content form
 
 div.comment_form span
 {
-    float: left; 
-    clear: both;
     margin:0.3em 0;
     padding-right: 1em;
     padding-left: 1em;
+}
+
+div.comment_form legend
+{
+    padding-bottom: 2em;
 }
 
 div.comment_form label
@@ -173,6 +176,7 @@ div.comment_form label
     width: 10%;
     text-align: right;
     padding-right: 2em;
+    padding-left: 2em;
     float: left;
 }
 
@@ -199,10 +203,11 @@ span.buttons
 
 span.buttons input
 {
+    color: black;
     margin: 1em;
     width: 10em;
     height: 2em;
-    background-color: yellow;
+    background-color: grey;
     font: italic 0.8em verdana;
 }
 
