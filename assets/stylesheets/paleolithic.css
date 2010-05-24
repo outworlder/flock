@@ -37,7 +37,7 @@ h1
 
 .header_link:hover, .header_link:active
 {
-    color: 0000FF;
+    color: #0000FF;
     text-decoration: underline;
 }
 
@@ -109,6 +109,12 @@ span.title a:link, a:visited
 {
 	color: #FFFFAA;
 	text-decoration: none;
+}
+
+span.title a:hover, a:active
+{
+    color: #0000FF;
+    text-decoration: underline;
 }
 
 div.post span.date
