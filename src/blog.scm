@@ -17,9 +17,10 @@
   (html-page
    (++ 
     (<div> class: "header"
-           (<h1> 
-                 (link (main-page-path) "Paleolithic Computing"))
-           (<h2> "Because Computer Science is still in the stone age..."))
+           (<div> class: "site_title"
+                  (<h1>
+                   (link (main-page-path) "Paleolithic Computing" class: "header_link"))
+                  (<h2> "Because Computer Science is still in the stone age...")))
     (<div> id: "site_content"
            (if contents contents ""))) css: css title: title doctype: doctype headers: headers charset: charset))
 

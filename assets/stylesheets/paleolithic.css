@@ -4,14 +4,15 @@
 
 body
 {
-    font-family: Arial;
+    font-family: Tahoma;
     font-size: 1em;
     color: #FFFFFF;
     margin-top: 0 !important;
     margin-left: 1em;
     margin-right: 1em;
     padding-top: 0;
-    background: #999999 url("/assets/images/bkg_main.jpg") repeat-x scroll 0 0;
+    /* background: #000000 url("/assets/images/bg.gif") repeat 0 0; */
+    background: #000000;
 }
 
 h1
@@ -22,13 +23,19 @@ h1
     font-family: sans-serif;
 }
 
-h1 a:link, a:visited
+.header_link
+{
+    font-family: Georgia, "Times New Roman", Times, serif;
+    text-shadow: #666666 0px 3px 2px;
+}
+
+.header_link:link, .header_link:visited
 {
     color: #FFFFFF;
     text-decoration: none;
 }
 
-h1 a:hover, a:active
+.header_link:hover, .header_link:active
 {
     color: 0000FF;
     text-decoration: underline;
@@ -37,10 +44,10 @@ h1 a:hover, a:active
 h2
 {
     margin-top: -10px;
-    font-size: 0.8em;
-    font-style: italic;
     text-align: right;
     border-bottom: 2px solid;
+    border-color: #5b5b5b;
+	font: italic small-caps 0.8em Georgia, "Times New Roman", Times, serif;
 }
 
 div.header
@@ -54,6 +61,12 @@ div.header
     margin-right: auto;
 }
 
+div.site_title
+{
+    opacity: 0.5;
+    background: #000000;
+}
+
 div.post, #main_content
 {
     padding-top:0.5em;
@@ -61,6 +74,10 @@ div.post, #main_content
     padding-left: 1em;
     width: 70%;
     background-color: #111111;
+}
+
+div.post {
+    background: url("/assets/images/bg.gif") repeat 0 0;
 }
 
 #rightbar
@@ -83,9 +100,15 @@ div.post span.title
 {
     width: 80%;
     text-align: left;
-    font-family: Helvetica;
-    font-size: 2.2em;
     color: #FFFF44;
+	font: 2.2em "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+	
+}
+
+span.title a:link, a:visited
+{
+	color: #FFFFAA;
+	text-decoration: none;
 }
 
 div.post span.date
@@ -94,6 +117,7 @@ div.post span.date
     font-size: 0.8em;
     font-style: italic;
     display: block;
+	color: #bbb;
 }
 
 #site_content
@@ -106,7 +130,7 @@ div.post span.date
 
 div.post div.content
 {
-    font-family: Helvetica, arial;
+    font-family: "Lucida Grande", Lucida, Verdana, sans-serif;
     clear: both;
     text-align: justify;
     font-size: 1.1em;
@@ -184,8 +208,8 @@ div.comment_form input
 {
     padding:0.15em;
     witdh: 10em;
-    -moz-border-radius:0.4em;
-    -khtml-border-radius:0.4em;
+    /* -moz-border-radius:0.4em; */
+    /* -khtml-border-radius:0.4em; */
     height: 2.5em;
     width: 25em;
 }
@@ -208,7 +232,13 @@ span.buttons input
     width: 10em;
     height: 2em;
     background-color: grey;
-    font: italic 0.8em verdana;
+    font: normal 0.8em "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+	border: 1px solid white;
+}
+
+span.buttons input:hover
+{
+	border: 1px solid red;
 }
 
 /* Error messages */
