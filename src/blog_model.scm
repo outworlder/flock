@@ -17,10 +17,11 @@
   (db-exec (insert posts (content publishdate title visible) (? ? ? ?)) content (current-seconds) title visible))
 
 (define (get-blog-posts)
-  (db-query (map-rows make-blog-post-from-record) (from posts (id title content publishdate visible) (order by (publishdate) desc))))
+  (map make-blog-post-from-record
+       ($db (from posts (id title content publishdate visible) (order by (publishdate) desc)))))
 
 (define (get-blog-post-by-id post-id)
-  (make-blog-post-from-record (db-query fetch (from posts (id title content publishdate visible) (where (= 'id post-id))))))
+  (make-blog-post-from-record (car ($db (from posts (id title content publishdate visible) (where (= 'id ?)) (limit 1)) values: (list post-id)))))
 
 (define (get-latest-blog-post)
   (make-blog-post-from-record (db-query fetch (from posts (id title content publishdate visible) (order by (publishdate) desc) (limit 1)))))
