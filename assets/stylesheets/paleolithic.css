@@ -11,7 +11,6 @@ body
     margin-left: 1em;
     margin-right: 1em;
     padding-top: 0;
-    /* background: #000000 url("/assets/images/bg.gif") repeat 0 0; */
     background: #000000;
 }
 
@@ -47,7 +46,7 @@ h2
     text-align: right;
     border-bottom: 2px solid;
     border-color: #5b5b5b;
-	font: italic small-caps 0.8em Georgia, "Times New Roman", Times, serif;
+    font: italic small-caps 0.8em Georgia, "Times New Roman", Times, serif;
 }
 
 div.header
@@ -76,7 +75,8 @@ div.post, #main_content
     background-color: #111111;
 }
 
-div.post {
+div.post
+{
     background: url("/assets/images/bg.gif") repeat 0 0;
 }
 
@@ -101,14 +101,15 @@ div.post span.title
     width: 80%;
     text-align: left;
     color: #FFFF44;
-	font: 2.2em "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
-	
+    font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+    font-size: 1.5em;
+    font-weight: bold;
 }
 
 span.title a:link, a:visited
 {
-	color: #FFFFAA;
-	text-decoration: none;
+    color: #FFFFAA;
+    text-decoration: none;
 }
 
 span.title a:hover, a:active
@@ -123,7 +124,7 @@ div.post span.date
     font-size: 0.8em;
     font-style: italic;
     display: block;
-	color: #bbb;
+    color: #bbb;
 }
 
 #site_content
@@ -239,12 +240,12 @@ span.buttons input
     height: 2em;
     background-color: grey;
     font: normal 0.8em "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
-	border: 1px solid white;
+    border: 1px solid white;
 }
 
 span.buttons input:hover
 {
-	border: 1px solid red;
+    border: 1px solid red;
 }
 
 /* Error messages */
