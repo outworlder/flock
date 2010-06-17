@@ -1,9 +1,6 @@
 (use awful)
 (use html-utils)
 
-;; (define-page "/comment_posted"
-;;   (let 
-
 
 ;; TODO: Need to come up with a solution for XSS vulnerabilities.
 (define (render-comment post-id)
@@ -28,24 +25,25 @@
     (<div> class: "comment_form"
            (<legend> "Post a comment")
            (<hr>)
+           (<input> type: "hidden" name: "post_id" value: post-id)
             (<span> class: "author_box"
                     (<p>
                      (<label> for: "author_name" "Name ")
-                     (text-input "Name" id: "author_name")))
+                     (text-input "Name" id: "author_name" name: "author_name")))
             (<span> class: "email_box"
                     (<p>
                      (<label> for: "author_email" "Email ")
-                     (text-input "Email" id: "author_email")))
+                     (text-input "Email" id: "author_email" name: "author_email")))
             (<span> class: "url_box"
                     (<p>
                      (<label> for: "author_url" "Url ")
-                     (text-input "Url" id: "author_url")))
+                     (text-input "Url" id: "author_url" name: "author_url")))
             (<span> class: "Comment"
-                    (<textarea> id: "comment_area"))
+                    (<textarea> id: "comment_area" name: "comment_area"))
             (<span> class: "buttons"
                     (submit-input value: "Submit comment")
                     ;; (<input> type: "reset" id: "reset_button")
                     (<input> type: "hidden" id: "post-id" value: post-id)))
-           action: "post_comment" method: 'post)))
+           action: (string-append "/post?postid=" (->string post-id) ";" (sid)) method: 'post)))
 
                   

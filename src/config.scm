@@ -20,7 +20,13 @@
 (page-css "assets/stylesheets/paleolithic.css")
 (page-charset "utf-8")
 
+(debug-db-query? #t)
 (debug-log (current-error-port))
+(debug-file "debug.log")
+
+(page-access-control
+ (lambda (path)
+   (or (member path `(,(login-page-path) "/login-trampoline" ,(main-page-path) "/post")))))
 
 (page-exception-message
  (lambda (exn)

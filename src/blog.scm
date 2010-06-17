@@ -1,7 +1,7 @@
-(use spiffy awful html-tags sql-de-lite)
-
+(use spiffy awful intarweb html-tags sql-de-lite spiffy-request-vars)
 (include "src/config")
 (include "src/db")
+(include "src/validation")
 (include "src/blog_model")
 (include "src/user_model")
 (include "src/comment_model")
@@ -10,6 +10,7 @@
 (include "src/comment")
 (include "src/admin")
 (include "src/user_admin")
+(include "src/flash")
 
 ;; TODO: Add a sort of "include dependencies"
 
@@ -22,9 +23,15 @@
                    (link (main-page-path) "Paleolithic Computing" class: "header_link"))
                   (<h2> "Because Computer Science is still in the stone age...")))
     (<div> id: "site_content"
+           (if (has-flash 'notice)
+               (<div> id: "notice"
+                      (flash 'notice)))
+           (if (has-flash 'error)
+               (<div> id: "error"
+                      (flash 'error)))
            (if contents contents ""))) css: css title: title doctype: doctype headers: headers charset: charset))
 
-(page-template main-template)
+(page-template main-template no-session: #t)
 
 (include "src/post")
 
@@ -35,7 +42,7 @@
                   (<div> class: "post_header"
                          (<span> class: "title"
                                  (link "/post" 
-                                       (blog-post-title post) arguments: `((postid . ,(blog-post-id post)))))
+                                       (blog-post-title post) arguments: `((post_id . ,(blog-post-id post)))))
                          (<span> class: "date"
                                  "Posted: " (seconds->string (blog-post-publish-date post)))
                          (<div> class: "content"
@@ -56,10 +63,18 @@
 
 (define-page "/post"
   (lambda ()
-    (let ([blog-post (get-blog-post-by-id ($ 'postid))])
-         (if blog-post
-             (render-blog-posts blog-post)
-             (<h3> "Post not found.")))))
+    (debug "Post-id: " ($ 'post_id))
+    (let ([blog-post (get-blog-post-by-id ($ 'post_id))]) 
+      (if blog-post
+          (begin
+            (if (eq? 'POST (request-method (current-request)))
+                (with-request-vars* $ (post_id Name Email Url comment_area)
+                                   (debug Name Email Url comment_area)
+                                   (if (add-comment (make-comment #f Name Email Url post_id comment_area))
+                                       (set-flash 'notice "Comment added successfully.")
+                                       (set-flash 'error "Error adding comment."))))
+            (render-blog-posts blog-post))
+          (<h3> "Post not found.")))))
 
 (define-page (login-page-path)
   (lambda ()
