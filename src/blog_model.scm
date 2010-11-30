@@ -1,9 +1,10 @@
 (use aql)
 (use srfi-19)
+(use coops)
 (use orly)
 
 (define-model <blog-post> "posts"
-  (id title content publish-date visible))
+  (id title content publishdate visible))
 
 (define-method (print-object (obj <blog-post>) #!optional (port (current-output-port)))
   (if (slot-initialized? obj 'id)

@@ -1,6 +1,9 @@
 (use awful awful-sql-de-lite)
+(use coops)
+(use orly)
 
 (define *database* "paleolithic.sqlite")
+(orly-database-url "paleolithic.sqlite")
 
 (define *assets*
   '((stylesheet "/assets/stylesheets")

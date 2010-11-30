@@ -42,13 +42,13 @@
                   (<div> class: "post_header"
                          (<span> class: "title"
                                  (link "/post" 
-                                       (blog-post-title post) arguments: `((post_id . ,(blog-post-id post)))))
+                                       (slot-value post 'title) arguments: `((post_id . ,(slot-value post 'id)))))
                          (<span> class: "date"
-                                 "Posted: " (seconds->string (blog-post-publish-date post)))
+                                 "Posted: " (seconds->string (slot-value post 'publishdate)))
                          (<div> class: "content"
-                                (blog-post-content post)
+                                (slot-value post 'content)
                                 (if post-id
-                                    (render-comment (blog-post-id post))
+                                    (render-comment (slot-value post 'id))
                                     ""))
                          (<div> class: "post_footer"))))])
     (if post-id

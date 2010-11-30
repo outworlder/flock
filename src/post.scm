@@ -25,6 +25,6 @@
 ;; TODO: Instead of concatenating strings, use a library to build URLs
 (define (make-post-permalink post #!key '(type 'FRIENDLY) #!key '(link-name "Permalink") #!key '(post-root "/posts"))
   (case type
-    (['STANDARD] (link link-name (string-append post-root "&id=" (blog-post-id post))))
-    (['SEO]) (link link-name (string-append post-root "/" (string-intersperse (string-split (blog-post-title)) "-")))
-    (['FRIENDLY]) (link link-name (string-append post-root "/" (blog-post-id post)))))
+    (['STANDARD] (link link-name (string-append post-root "&id=" (slot-value post 'id))))
+    (['SEO]) (link link-name (string-append post-root "/" (string-intersperse (string-split (slot-value post 'title)) "-")))
+    (['FRIENDLY]) (link link-name (string-append post-root "/" (slot-value post 'id)))))
