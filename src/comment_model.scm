@@ -1,13 +1,8 @@
-(define-record comment id author email url post_id comment)
+(use coops)
+(use orly)
 
-(define-record-printer comment
-  (lambda (record port)
-    (print "[COMMENT]: " )
-    (print "ID: " (comment-id record))
-    (print "Author: " (comment-author record))
-    (print "Email: " (comment-email record))
-    (print "Comment: " (comment-comment record))))
-
+(define-model <blog-comment> "comments"
+  (id author email url post_id comment))
 
 (define-syntax validate-comment
   (syntax-rules ()
@@ -16,12 +11,9 @@
                                 body ...)
                               (lambda (results)
                                 (string-append results))
-                              ((validate-presence `(author . ,(comment-author comment)))
-                               (validate-presence `(email  .,(comment-email comment)))
-                               (validate-presence `(comment . ,(comment-comment comment))))))))
-
-(define (make-comment-from-record record)
-  (apply make-comment record))
+                              ((validate-presence `(author . ,(slot-value comment 'author)))
+                               (validate-presence `(email  .,(slot-value comment 'email)))
+                               (validate-presence `(comment . ,(slot-value comment 'comment))))))))
 
 (define (add-comment comment)
   (validate-comment (comment)
@@ -32,7 +24,7 @@
   (db-exec (delete comments (where (= id (comment-id))))))
 
 (define (get-comments)
-  (db-query (map-rows make-comment-from-record) (from comments (id author email url post_id comment))))
+  (find-all <blog-comment>))
 
 (define (get-comments-by-post-id post_id)
-  (db-query (map-rows make-comment-from-record) (from comments (id author email url post_id comment) (where (= post_id post_id)))))
+  (comments (find-by-id <blog-post> post-id)))
