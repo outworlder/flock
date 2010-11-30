@@ -1,30 +1,26 @@
 (use aql)
 (use srfi-19)
+(use orly)
 
-(define-record blog-post id title content publish-date visible)
-(define-record-printer blog-post        ;TODO: It is not respecting the output port
-  (lambda (record port)
-    (print "[BLOG POST]")
-    (print "Title: " (blog-post-title record))
-    (print "Publish date: " (blog-post-publish-date record))
-    (print "Visible: " (blog-post-visible record))
-    (print "Content: " (blog-post-content record))))
+(define-model <blog-post> "posts"
+  (id title content publish-date visible))
 
-(define (make-blog-post-from-record record)
-  (apply make-blog-post record))
+(define-method (print-object (obj <blog-post>) #!optional (port (current-output-port)))
+  (if (slot-initialized? obj 'id)
+      (fprintf port "<#blog-post id:[~A] title:[\"~A\"]>" (slot-value obj 'id) (slot-value obj 'title))
+      (fprintf port "<#blog-post [uninitialized]>")))
 
 (define (add-blog-post title content #!key (visible SQL-FALSE))
   (db-exec (insert posts (content publishdate title visible) (? ? ? ?)) content (current-seconds) title visible))
 
 (define (get-blog-posts)
-  (map make-blog-post-from-record
-       ($db (from posts (id title content publishdate visible) (order by (publishdate) desc)))))
+  (find-all <blog-post>))
 
 (define (get-blog-post-by-id post-id)
-  (make-blog-post-from-record (car ($db (from posts (id title content publishdate visible) (where (= 'id ?)) (limit 1)) values: (list post-id)))))
+  (find-by-id <blog-post> post-id))
 
 (define (get-latest-blog-post)
-  (make-blog-post-from-record (db-query fetch (from posts (id title content publishdate visible) (order by (publishdate) desc) (limit 1)))))
+  (find <blog-post> conditions: `(order by (publishdate) desc)))
 
 ;; How to map permalinks to the original post?
 ;; Assuming SEO permalinks for now
