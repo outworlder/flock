@@ -6,7 +6,7 @@
 (define-model <blog-post> "posts"
   (id title content publishdate visible))
 
-(has-many <blog-post> <blog-comments> comments foreign-key: id)
+(has-many <blog-post> <blog-comment> comments foreign-key: id)
 
 (define-method (print-object (obj <blog-post>) #!optional (port (current-output-port)))
   (if (slot-initialized? obj 'id)
