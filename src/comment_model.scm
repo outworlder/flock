@@ -26,5 +26,5 @@
 (define (get-comments)
   (find-all <blog-comment>))
 
-(define (get-comments-by-post-id post_id)
+(define (get-comments-by-post-id post-id)
   (comments (find-by-id <blog-post> post-id)))
