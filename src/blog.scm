@@ -25,10 +25,12 @@
     (<div> id: "site_content"
            (if (has-flash 'notice)
                (<div> id: "notice"
-                      (flash 'notice)))
+                      (flash 'notice))
+               "")
            (if (has-flash 'error)
                (<div> id: "error"
-                      (flash 'error)))
+                      (flash 'error))
+               "")
            (if contents contents ""))) css: css title: title doctype: doctype headers: headers charset: charset))
 
 (page-template main-template no-session: #t)
